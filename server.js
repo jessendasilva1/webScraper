@@ -8,15 +8,11 @@ var exphbs = require("express-handlebars");
 var app = express();
 var PORT = process.env.PORT || 4000;
 
-// Parse request body as JSON
-app.use(
-  express.urlencoded({
-    extended: true
-  })
-);
+// Middleware
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// Make public a static folder
 app.use(express.static("public"));
+
 // Handlebars
 app.engine(
   "handlebars",
