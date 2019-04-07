@@ -6,6 +6,14 @@ const db = require("../models");
 
 module.exports = function(app) {
   app.get("/", function(req, res) {
+    db.Article.find().then(function(results) {
+      res.render("index", {
+        results: results
+      });
+    });
+  });
+
+  app.get("/scrape", function(req, res) {
     let promises = [];
     axios
       .get(
@@ -60,11 +68,7 @@ module.exports = function(app) {
         console.log(err);
       });
     Promise.all(promises).then(() => {
-      db.Article.find().then(function(results) {
-        res.render("index", {
-          results: results
-        });
-      });
+      res.redirect("/");
     });
   });
 
