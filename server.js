@@ -28,9 +28,14 @@ require("./routes/apiRoutes")(app);
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/webScraperDB";
 
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true
-});
+mongoose
+  .connect(MONGODB_URI)
+  .then(() => {
+    console.log("Connected to Database");
+  })
+  .catch(err => {
+    console.log("Not Connected to Database ERROR! ", err);
+  });
 
 // Start the server
 app.listen(PORT, function() {
